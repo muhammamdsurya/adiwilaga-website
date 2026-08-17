@@ -1,0 +1,16 @@
+# ============================================================================
+# robots.txt — Adiwilaga Agung
+# ----------------------------------------------------------------------------
+# Deskripsi : Mengizinkan seluruh mesin pencari mengindeks halaman.
+#             Situs bersifat statis dan publik, tidak ada area privat.
+# PENTING   : Ganti domain pada baris Sitemap dengan domain asli.
+# Tanggal Modifikasi : 17 Agustus 2026
+# ============================================================================
+
+User-agent: *
+Allow: /
+
+# Blokir folder kerja internal (tidak perlu diindeks)
+Disallow: /tools/
+
+Sitemap: https://www.adiwilagaagung.co.id/sitemap.xml

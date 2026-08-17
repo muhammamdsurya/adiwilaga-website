@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================================================
+  sitemap.xml — Adiwilaga Agung
+  ----------------------------------------------------------------------------
+  Deskripsi : Peta situs untuk single-page landing page. Setiap section utama
+              didaftarkan sebagai URL beranchor agar Google dapat menampilkan
+              "jump to section" pada hasil pencarian.
+  PENTING   : Ganti seluruh "https://www.adiwilagaagung.co.id" dengan domain
+              asli setelah hosting aktif. Perbarui <lastmod> setiap kali
+              konten diubah.
+  Tanggal Modifikasi : 17 Agustus 2026
+  ============================================================================
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://www.adiwilagaagung.co.id/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://www.adiwilagaagung.co.id/#tentang-kami</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.adiwilagaagung.co.id/#layanan</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.adiwilagaagung.co.id/#produk</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.adiwilagaagung.co.id/#kontak</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>

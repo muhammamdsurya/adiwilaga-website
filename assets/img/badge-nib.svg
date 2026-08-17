@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" width="320" height="180" role="img" aria-label="NIB - Nomor Induk Berusaha">
+  <rect x="2" y="2" width="316" height="176" rx="14" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <circle cx="60" cy="90" r="30" fill="#0B2545"/>
+  <path d="M48 90l9 9 16-18" fill="none" stroke="#F97316" stroke-width="6"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="104" y="82" fill="#0B2545" font-family="Segoe UI,Roboto,Helvetica,Arial,sans-serif"
+        font-size="27" font-weight="700">NIB</text>
+  <text x="104" y="112" fill="#64748B" font-family="Segoe UI,Roboto,Helvetica,Arial,sans-serif"
+        font-size="14">Nomor Induk Berusaha</text>
+</svg>

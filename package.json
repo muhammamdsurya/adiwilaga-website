@@ -1,0 +1,14 @@
+{
+  "name": "adiwilaga-agung-landing",
+  "version": "1.0.0",
+  "description": "Landing page statis Adiwilaga Agung — Kontraktor Umum & Pengadaan Barang Jasa",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i src/input.css -o assets/css/tailwind.min.css --minify",
+    "watch:css": "tailwindcss -i src/input.css -o assets/css/tailwind.min.css --watch",
+    "verify": "node tools/verify.js"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.16"
+  }
+}
