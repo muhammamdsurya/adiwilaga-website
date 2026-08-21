@@ -361,18 +361,17 @@ const SITE = {
   },
   {
     slug: "percetakan-umum",
-    judul: "Percetakan Umum",
+    judul: "Sewa Mesin Percetakan & Percetakan Umum",
     icon: "printer",
     img: "assets/img/printing1.jpeg",
     alt: "Hasil cetak dokumen, banner, dan kop surat perusahaan",
-    deskripsi: "Layanan cetak kebutuhan operasional dan promosi: kop surat, amplop, nota & formulir, kartu nama, brosur, banner, spanduk, hingga cetak dokumen tender. Tersedia layanan desain sederhana serta pengerjaan cepat untuk kebutuhan mendesak.",
+    deskripsi: "Layanan sewa mesin cetak dan cetak kebutuhan operasional dan promosi: kop surat, amplop, nota & formulir, kartu nama, brosur, banner, spanduk, hingga cetak dokumen tender. Tersedia layanan desain sederhana serta pengerjaan cepat untuk kebutuhan mendesak.",
     poin: ["Cetak dokumen, banner & spanduk", "Bantuan desain sederhana", "Layanan cepat untuk kebutuhan tender"],
     waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang jasa Percetakan Umum.",
     galeri: [
-      { src: "assets/img/printing1.jpeg", caption: "Hasil cetak kop surat & formulir" },
-      { src: "assets/img/printing2.jpeg", caption: "Cetak brosur & kartu nama" },
-      { src: "assets/img/printing3.jpeg", caption: "Cetak banner & spanduk" },
-      { src: "assets/img/printing5.jpeg", caption: "Cetak dokumen tender" }
+      { src: "assets/img/printing1.jpeg", caption: "Printer" },
+      { src: "assets/img/printing3.jpeg", caption: "Printer dot matrix" },
+      { src: "assets/img/printing5.jpeg", caption: "Pemasangan stiker" }
     ]
   },
   {
@@ -386,6 +385,7 @@ const SITE = {
     waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang pengadaan Material Proyek.",
     galeri: [
       { src: "assets/img/abu-batu.jpeg", caption: "Material abu batu" },
+      { src: "assets/img/heavy-duty.jpeg", caption: "Material Keramik Heavy Duty" },
       { src: "assets/img/rangkas-abadi.jpeg", caption: "Material Rangkas Abadi" },
       { src: "assets/img/split.jpeg", caption: "Material split" },
       { src: "assets/img/bangka-cream.jpeg", caption: "Material Bangka Cream" },
@@ -430,8 +430,12 @@ const SITE = {
     alt: "Instalasi CCTV, jaringan komputer, Custom Software dan mesin absensi sidik jari",
     deskripsi: "Instalasi dan integrasi perangkat IT: kamera CCTV beserta konfigurasi akses jarak jauh, instalasi jaringan LAN/Wi-Fi, Custom Software sesuai kebutuhan, pemasangan mesin absensi sidik jari dan akses pintu, serta perawatan perangkat secara berkala.",
     poin: ["CCTV", "Instalasi jaringan", "Custom Software", "Mesin absensi sidik jari & akses pintu"],
-    waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang Layanan Jasa IT (CCTV / jaringan / Software / mesin absensi)."
-    // galeri belum ditambahkan — gambar pendukung belum tersedia
+    waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang Layanan Jasa IT (CCTV / jaringan / Software / mesin absensi).",
+    galeri: [
+      { src: "assets/img/cctv1.webp", caption: "Pemasangan CCTV" },
+      { src: "assets/img/akses.webp", caption: "Akses pintu dengan sidik jari" },
+      { src: "assets/img/aplikasi.png", caption: "Pembuatan aplikasi custom" },
+    ]
   }
 ],
   /* ---------------------------------------------------------------------
@@ -448,6 +452,60 @@ const SITE = {
       keunggulan: ["cocok untuk bengkel dan workshop", "Permukaan anti-slip", "Tersedia stok proyek"],
       waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang produk Keramik Heavy Duty 10 x 20 cm."
     },
+    {
+    nama: "Split (Batu Split)",
+    kategori: "Material Bangunan",
+    img: "assets/img/split.jpeg",
+    alt: "Batu split untuk kebutuhan pengecoran dan konstruksi",
+    spesifikasi: "Ukuran 1-2 cm · Kemasan per kubik",
+    keunggulan: ["Cocok untuk campuran cor beton", "Kualitas terjaga dan bersih", "Tersedia dalam volume besar"],
+    waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang produk Split (Batu Split)."
+  },
+  {
+    nama: "Abu Batu",
+    kategori: "Material Bangunan",
+    img: "assets/img/abu-batu.jpeg",
+    alt: "Abu batu untuk campuran adukan dan pengecoran",
+    spesifikasi: "Butiran halus · Kemasan curah / per kubik",
+    keunggulan: ["Cocok untuk campuran plester & acian", "Tekstur halus dan merata", "Harga bersaing untuk volume proyek"],
+    waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang produk Abu Batu."
+  },
+  {
+    nama: "Pasir Rangkas Abadi",
+    kategori: "Material Bangunan",
+    img: "assets/img/rangkas-abadi.jpeg",
+    alt: "Pasir Rangkas Abadi untuk kebutuhan konstruksi",
+    spesifikasi: "Butiran sedang · Kemasan curah / per kubik",
+    keunggulan: ["Kualitas pasir terjaga", "Cocok untuk pengecoran & pasangan bata", "Pengiriman terjadwal ke lokasi"],
+    waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang produk Pasir Rangkas Abadi."
+  },
+   {
+    nama: "Pasir Bangka Cream",
+    kategori: "Material Bangunan",
+    img: "assets/img/bangka-cream.jpeg",
+    alt: "Pasir Bangka Cream untuk finishing dan plester",
+    spesifikasi: "Butiran halus · Warna cream · Kemasan curah / per kubik",
+    keunggulan: ["Cocok untuk plesteran halus", "Warna konsisten", "Tersedia stok proyek besar"],
+    waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang produk Pasir Bangka Cream."
+  },
+  {
+    nama: "Pasir Bangka Putih",
+    kategori: "Material Bangunan",
+    img: "assets/img/bangka-putih.jpeg",
+    alt: "Pasir Bangka Putih untuk kebutuhan konstruksi dan finishing",
+    spesifikasi: "Butiran halus · Warna putih · Kemasan curah / per kubik",
+    keunggulan: ["Cocok untuk acian & finishing", "Warna cerah dan bersih", "Harga bersaing untuk volume besar"],
+    waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang produk Pasir Bangka Putih."
+  },
+  {
+    nama: "Batu Belah",
+    kategori: "Material Bangunan",
+    img: "assets/img/batu-belah.jpeg",
+    alt: "Batu belah untuk pondasi dan konstruksi",
+    spesifikasi: "Ukuran variatif · Kemasan curah / per kubik",
+    keunggulan: ["Kuat untuk pondasi bangunan", "Cocok untuk talud & saluran", "Tersedia dalam volume besar"],
+    waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang produk Batu Belah."
+  },
     {
       nama: "Mesin Penghancur dan Pelebur Kertas",
       kategori: "Peralatan Kantor",
@@ -469,7 +527,7 @@ const SITE = {
      {
       nama: "Software / Aplikasi Custom",
       kategori: "Software & Aplikasi",
-      img: "assets/img/informatic.jpg",
+      img: "assets/img/aplikasi.png",
       alt: "Paket CCTV 4 channel lengkap dengan DVR dan instalasi",
       spesifikasi: "Modern · Cepat · Aman",
       keunggulan: ["Custom software sesuai kebutuhan", "bantuan 24/7", "jaminan kemanan data"],
