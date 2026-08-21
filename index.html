@@ -152,6 +152,55 @@
   #maps-wrapper { position: relative; height: 300px; }
   @media (min-width: 640px)  { #maps-wrapper { height: 380px; } }
   @media (min-width: 1024px) { #maps-wrapper { height: 100%; min-height: 460px; } }
+
+  .lb-overlay{
+  position: fixed; inset: 0; z-index: 100;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(15, 23, 42, .92);
+  padding: 1.5rem;
+}
+.lb-overlay.is-open{ display: flex; }
+
+.lb-content{
+  max-width: min(90vw, 900px);
+  max-height: 85vh;
+  display: flex; flex-direction: column; align-items: center;
+  animation: lb-zoom .25s ease;
+}
+.lb-content img{
+  max-width: 100%; max-height: 70vh;
+  object-fit: contain; border-radius: .5rem;
+  box-shadow: 0 20px 50px rgba(0,0,0,.5);
+}
+.lb-caption{ margin-top: .75rem; text-align: center; color: #e2e8f0; }
+.lb-caption #lb-title{ font-weight: 700; font-size: 1rem; }
+.lb-caption #lb-desc{ font-size: .875rem; color: #94a3b8; margin-top: .25rem; }
+.lb-counter{ display:block; margin-top:.5rem; font-size:.75rem; color:#64748b; }
+
+.lb-close{
+  position: absolute; top: 1rem; right: 1.25rem;
+  font-size: 2rem; line-height: 1; color: #fff;
+  background: transparent; border: 0; cursor: pointer;
+}
+.lb-nav{
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,.1); color:#fff; border: 0;
+  width: 2.75rem; height: 2.75rem; border-radius: 9999px;
+  font-size: 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
+}
+.lb-nav:hover{ background: rgba(255,255,255,.25); }
+.lb-prev{ left: 1rem; }
+.lb-next{ right: 1rem; }
+
+@keyframes lb-zoom{
+  from{ opacity: 0; transform: scale(.92); }
+  to{ opacity: 1; transform: scale(1); }
+}
+
+/* Kursor zoom pada gambar card */
+#layanan-grid img{ cursor: zoom-in; }
 </style>
 </head>
 
@@ -265,88 +314,126 @@ const SITE = {
        waPesan = pesan WhatsApp otomatis khusus layanan ini
      --------------------------------------------------------------------- */
   layanan: [
-    {
-      slug: "konstruksi",
-      judul: "Konstruksi Gedung &amp; Bangunan Rumah",
-      icon: "building",
-      img: "assets/img/construction.jpg",
-      alt: "Pekerjaan konstruksi dan renovasi gedung serta rumah tinggal",
-      deskripsi: "Pembangunan baru maupun renovasi gedung kantor, ruko, dan rumah tinggal. Mulai dari perhitungan RAB, pekerjaan struktur, arsitektur, hingga finishing. Pekerjaan dijalankan oleh tim tukang dan pengawas lapangan berpengalaman dengan progres yang dilaporkan berkala.",
-      poin: ["Survey &amp; RAB gratis", "Gambar kerja + progres berkala", "Garansi pekerjaan struktur"],
-      waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang jasa Konstruksi Gedung & Bangunan Rumah."
-    },
-    {
-      slug: "service-alat-kantor-bank",
-      judul: "Service &amp; Maintenance Alat Kantor dan Bank",
-      icon: "wrench",
-      img: "assets/img/maintenance.jpg",
-      alt: "Teknisi memperbaiki mesin kantor dan peralatan perbankan",
-      deskripsi: "Perbaikan dan perawatan berkala mesin kantor serta peralatan perbankan: mesin hitung uang, mesin penghitung koin, pass box, mesin antrian, hingga peralatan kantor lainnya. Tersedia kontrak maintenance berkala dengan jadwal kunjungan tetap.",
-      poin: ["Kontrak maintenance berkala", "Teknisi on-site &amp; sparepart", "Laporan hasil servis tertulis"],
-      waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang jasa Service & Maintenance Alat Kantor dan Bank."
-    },
-    {
-      slug: "sewa-mesin-penghancur-kertas",
-      judul: "Sewa Mesin Penghancur Kertas &amp; Pemusnahan Dokumen Arsip",
-      icon: "shredder",
-      img: "assets/img/paper-shredder.jpg",
-      alt: "Layanan pemusnahan dokumen arsip dengan metode pulping",
-      deskripsi: "Layanan pemusnahan dokumen arsip yang aman dan sah secara administratif. Tersedia sewa mesin penghancur kertas untuk pemakaian di lokasi Anda (on-site), maupun paket peleburan dokumen dengan metode pulping (bubur kertas) sehingga dokumen tidak dapat direkonstruksi. Setiap pemusnahan dilengkapi Berita Acara Pemusnahan.",
-      poin: ["Berita Acara Pemusnahan resmi", "Metode pulping — tidak dapat direkonstruksi", "Opsi on-site &amp; disaksikan tim Anda"],
-      waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang Sewa Mesin Penghancur Kertas & Pemusnahan Dokumen Arsip."
-    },
-    {
-      slug: "percetakan-umum",
-      judul: "Percetakan Umum",
-      icon: "printer",
-      img: "assets/img/printing.jpg",
-      alt: "Hasil cetak dokumen, banner, dan kop surat perusahaan",
-      deskripsi: "Layanan cetak kebutuhan operasional dan promosi: kop surat, amplop, nota &amp; formulir, kartu nama, brosur, banner, spanduk, hingga cetak dokumen tender. Tersedia layanan desain sederhana serta pengerjaan cepat untuk kebutuhan mendesak.",
-      poin: ["Cetak dokumen, banner &amp; spanduk", "Bantuan desain sederhana", "Layanan cepat untuk kebutuhan tender"],
-      waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang jasa Percetakan Umum."
-    },
-    {
-      slug: "supplier-material",
-      judul: "Supplier Material Proyek",
-      icon: "wrench",
-      img: "assets/img/material.jpg",
-      alt: "Pengiriman material bangunan untuk kebutuhan proyek",
-      deskripsi: "Pengadaan material bangunan dan kebutuhan proyek dalam jumlah retail maupun proyek: keramik, semen, besi, cat, pipa, material finishing, dan lainnya. Kami membantu penyesuaian spesifikasi terhadap RAB serta pengiriman terjadwal ke lokasi proyek.",
-      poin: ["Harga proyek untuk volume besar", "Penyesuaian spesifikasi dengan RAB", "Pengiriman terjadwal ke lokasi"],
-      waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang pengadaan Material Proyek."
-    },
-     {
-      slug: "bongkar-pasang-gedung",
-      judul: "Bongkar Pasang Bangunan",
-      icon: "building",
-      img: "assets/img/construction-site.jpg",
-      alt: "Layanan bongkar pasang gedung dan bangunan rumah",
-      deskripsi: "Layanan bongkar pasang gedung dan bangunan rumah dengan tenaga profesional dan peralatan yang memadai. Kami menjamin keselamatan dan kepuasan pelanggan dalam setiap proyek.",
-      poin: ["Tenaga profesional", "Peralatan modern", "Jaminan keselamatan"],
-      waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang layanan Bongkar Pasang Bangunan."
-    },
-    {
-      slug: "sewa-mobil",
-      judul: "Sewa Mobil Operasional",
-      icon: "truck",
-      img: "assets/img/rental-car.jpg",
-      alt: "Layanan sewa mobil operasional kantor maupun perorangan",
-      deskripsi: "Layanan sewa mobil operasional dengan mobil yang memadai dan tenaga driver profesional. Kami menjamin keselamatan dan kepuasan pelanggan.",
-      poin: ["Mobil yang memadai", "Tenaga driver profesional", "Jaminan keselamatan"],
-      waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang layanan Sewa Mobil Operasional."
-    },
-    {
-      slug: "layanan-jasa-it",
-      judul: "Layanan Jasa IT — CCTV, Jaringan &amp; Absensi",
-      icon: "cctv",
-      img: "assets/img/informatic.jpg",
-      alt: "Instalasi CCTV, jaringan komputer, Custom Software dan mesin absensi sidik jari",
-      deskripsi: "Instalasi dan integrasi perangkat IT: kamera CCTV beserta konfigurasi akses jarak jauh, instalasi jaringan LAN/Wi-Fi, Custom Software sesuai kebutuhan, pemasangan mesin absensi sidik jari dan akses pintu, serta perawatan perangkat secara berkala.",
-      poin: ["CCTV", "Instalasi jaringan", "Custom Software", "Mesin absensi sidik jari &amp; akses pintu"],
-      waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang Layanan Jasa IT (CCTV / jaringan / Software / mesin absensi)."
-    }
-  ],
-
+  {
+    slug: "konstruksi",
+    judul: "Konstruksi Gedung & Bangunan Rumah",
+    icon: "building",
+    img: "assets/img/construction1.jpeg",
+    alt: "Pekerjaan konstruksi dan renovasi gedung serta rumah tinggal",
+    deskripsi: "Pembangunan baru maupun renovasi gedung kantor, ruko, dan rumah tinggal. Mulai dari perhitungan RAB, pekerjaan struktur, arsitektur, hingga finishing. Pekerjaan dijalankan oleh tim tukang dan pengawas lapangan berpengalaman dengan progres yang dilaporkan berkala.",
+    poin: ["Survey & RAB gratis", "Gambar kerja + progres berkala", "Garansi pekerjaan struktur"],
+    waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang jasa Konstruksi Gedung & Bangunan Rumah.",
+    galeri: [
+      { src: "assets/img/construction1.jpeg", caption: "Progres pekerjaan bangunan" },
+      { src: "assets/img/construction2.jpeg", caption: "Pemasangan keramik" },
+      { src: "assets/img/construction3.jpeg", caption: "Pemasangan pipa dan pompa air" }
+    ]
+  },
+  {
+    slug: "service-alat-kantor-bank",
+    judul: "Service & Maintenance Alat Kantor dan Bank",
+    icon: "wrench",
+    img: "assets/img/maintenance1.jpeg",
+    alt: "Teknisi memperbaiki mesin kantor dan peralatan perbankan",
+    deskripsi: "Perbaikan dan perawatan berkala mesin kantor serta peralatan perbankan: mesin hitung uang, mesin penghitung koin, pass box, mesin antrian, hingga peralatan kantor lainnya. Tersedia kontrak maintenance berkala dengan jadwal kunjungan tetap.",
+    poin: ["Kontrak maintenance berkala", "Teknisi on-site & sparepart", "Laporan hasil servis tertulis"],
+    waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang jasa Service & Maintenance Alat Kantor dan Bank.",
+    galeri: [
+      { src: "assets/img/maintenance1.jpeg", caption: "Servis mesin hitung uang" },
+      { src: "assets/img/maintenance2.jpeg", caption: "Perawatan mesin" },
+      { src: "assets/img/maintenance3.jpeg", caption: "Perbaikan peralatan kantor" }
+    ]
+  },
+  {
+    slug: "sewa-mesin-penghancur-kertas",
+    judul: "Sewa Mesin Penghancur Kertas & Pemusnahan Dokumen Arsip",
+    icon: "shredder",
+    img: "assets/img/paper-shredder1.jpeg",
+    alt: "Layanan pemusnahan dokumen arsip dengan metode pulping",
+    deskripsi: "Layanan pemusnahan dokumen arsip yang aman dan sah secara administratif. Tersedia sewa mesin penghancur kertas untuk pemakaian di lokasi Anda (on-site), maupun paket peleburan dokumen dengan metode pulping (bubur kertas) sehingga dokumen tidak dapat direkonstruksi. Setiap pemusnahan dilengkapi Berita Acara Pemusnahan.",
+    poin: ["Berita Acara Pemusnahan resmi", "Metode pulping — tidak dapat direkonstruksi", "Opsi on-site & disaksikan tim Anda"],
+    waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang Sewa Mesin Penghancur Kertas & Pemusnahan Dokumen Arsip.",
+    galeri: [
+      { src: "assets/img/paper-shredder1.jpeg", caption: "Mesin penghancur kertas on-site" },
+      { src: "assets/img/paper-shredder2.jpeg", caption: "Proses pemusnahan dokumen" },
+      { src: "assets/img/paper-shredder3.jpeg", caption: "Dokumentasi pemusnahan arsip" }
+    ]
+  },
+  {
+    slug: "percetakan-umum",
+    judul: "Percetakan Umum",
+    icon: "printer",
+    img: "assets/img/printing1.jpeg",
+    alt: "Hasil cetak dokumen, banner, dan kop surat perusahaan",
+    deskripsi: "Layanan cetak kebutuhan operasional dan promosi: kop surat, amplop, nota & formulir, kartu nama, brosur, banner, spanduk, hingga cetak dokumen tender. Tersedia layanan desain sederhana serta pengerjaan cepat untuk kebutuhan mendesak.",
+    poin: ["Cetak dokumen, banner & spanduk", "Bantuan desain sederhana", "Layanan cepat untuk kebutuhan tender"],
+    waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang jasa Percetakan Umum.",
+    galeri: [
+      { src: "assets/img/printing1.jpeg", caption: "Hasil cetak kop surat & formulir" },
+      { src: "assets/img/printing2.jpeg", caption: "Cetak brosur & kartu nama" },
+      { src: "assets/img/printing3.jpeg", caption: "Cetak banner & spanduk" },
+      { src: "assets/img/printing5.jpeg", caption: "Cetak dokumen tender" }
+    ]
+  },
+  {
+    slug: "supplier-material",
+    judul: "Supplier Material Proyek",
+    icon: "wrench",
+    img: "assets/img/abu-batu.jpeg",
+    alt: "Pengiriman material bangunan untuk kebutuhan proyek",
+    deskripsi: "Pengadaan material bangunan dan kebutuhan proyek dalam jumlah retail maupun proyek: keramik, semen, besi, cat, pipa, material finishing, dan lainnya. Kami membantu penyesuaian spesifikasi terhadap RAB serta pengiriman terjadwal ke lokasi proyek.",
+    poin: ["Harga proyek untuk volume besar", "Penyesuaian spesifikasi dengan RAB", "Pengiriman terjadwal ke lokasi"],
+    waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang pengadaan Material Proyek.",
+    galeri: [
+      { src: "assets/img/abu-batu.jpeg", caption: "Material abu batu" },
+      { src: "assets/img/rangkas-abadi.jpeg", caption: "Material Rangkas Abadi" },
+      { src: "assets/img/split.jpeg", caption: "Material split" },
+      { src: "assets/img/bangka-cream.jpeg", caption: "Material Bangka Cream" },
+      { src: "assets/img/bangka-putih.jpeg", caption: "Material Bangka Putih" },
+      { src: "assets/img/batu-belah.jpeg", caption: "Material batu belah" }
+    ]
+  },
+  {
+    slug: "bongkar-pasang-gedung",
+    judul: "Bongkar Pasang Bangunan",
+    icon: "building",
+    img: "assets/img/construction-site1.jpeg",
+    alt: "Layanan bongkar pasang gedung dan bangunan rumah",
+    deskripsi: "Layanan bongkar pasang gedung dan bangunan rumah dengan tenaga profesional dan peralatan yang memadai. Kami menjamin keselamatan dan kepuasan pelanggan dalam setiap proyek.",
+    poin: ["Tenaga profesional", "Peralatan modern", "Jaminan keselamatan"],
+    waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang layanan Bongkar Pasang Bangunan.",
+    galeri: [
+      { src: "assets/img/construction-site1.jpeg", caption: "Proses bongkar material" },
+      { src: "assets/img/construction-site2.jpeg", caption: "Proses pemasangan portal" },
+      { src: "assets/img/construction-site3.jpeg", caption: "Hasil pemasangan banner" }
+    ]
+  },
+  {
+    slug: "sewa-mobil",
+    judul: "Sewa Mobil Operasional",
+    icon: "truck",
+    img: "assets/img/rental-car1.jpeg",
+    alt: "Layanan sewa mobil operasional kantor maupun perorangan",
+    deskripsi: "Layanan sewa mobil operasional dengan mobil yang memadai dan tenaga driver profesional. Kami menjamin keselamatan dan kepuasan pelanggan.",
+    poin: ["Mobil yang memadai", "Tenaga driver profesional", "Jaminan keselamatan"],
+    waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang layanan Sewa Mobil Operasional.",
+    galeri: [
+      { src: "assets/img/rental-car1.jpeg", caption: "Armada mobil operasional" },
+      { src: "assets/img/rental-car2.jpeg", caption: "Mobil operasional siap pakai" }
+    ]
+  },
+  {
+    slug: "layanan-jasa-it",
+    judul: "Layanan Jasa IT — CCTV, Jaringan & Absensi",
+    icon: "cctv",
+    img: "assets/img/informatic.jpg",
+    alt: "Instalasi CCTV, jaringan komputer, Custom Software dan mesin absensi sidik jari",
+    deskripsi: "Instalasi dan integrasi perangkat IT: kamera CCTV beserta konfigurasi akses jarak jauh, instalasi jaringan LAN/Wi-Fi, Custom Software sesuai kebutuhan, pemasangan mesin absensi sidik jari dan akses pintu, serta perawatan perangkat secara berkala.",
+    poin: ["CCTV", "Instalasi jaringan", "Custom Software", "Mesin absensi sidik jari & akses pintu"],
+    waPesan: "Halo Adiwilaga Agung, saya ingin bertanya tentang Layanan Jasa IT (CCTV / jaringan / Software / mesin absensi)."
+    // galeri belum ditambahkan — gambar pendukung belum tersedia
+  }
+],
   /* ---------------------------------------------------------------------
      7. PRODUK
      Cara menambah produk: salin satu blok { ... } lalu ubah isinya.
@@ -355,7 +442,7 @@ const SITE = {
     {
       nama: "Keramik Heavy Duty 10 x 20 cm",
       kategori: "Material Bangunan",
-      img: "assets/img/ceramic.jpg",
+      img: "assets/img/heavy-duty.jpeg",
       alt: "Keramik heavy duty ukuran 10 x 20 cm cocok untuk Bengkel mobil,gudang & workshop ",
       spesifikasi: "10 x 20 cm · Unpolished · Grade A",
       keunggulan: ["cocok untuk bengkel dan workshop", "Permukaan anti-slip", "Tersedia stok proyek"],
@@ -364,7 +451,7 @@ const SITE = {
     {
       nama: "Mesin Penghancur dan Pelebur Kertas",
       kategori: "Peralatan Kantor",
-      img: "assets/img/paper-shredder.jpg",
+      img: "assets/img/paper-shredder1.jpeg",
       alt: "Mesin penghancur dan pelebur kertas untuk kebutuhan kantor",
       spesifikasi: "Strip Cut · Cross Cut · Sewa / beli",
       keunggulan: ["Potongan cross-cut & Strip Cut lebih aman", "Tersedia opsi sewa harian", "Pendampingan teknis"],
@@ -577,6 +664,10 @@ const SITE = {
 <!-- =========================================================================
      3.3  MENU LAYANAN JASA (6 jasa utama) — card grid dari SITE.layanan
      ========================================================================= -->
+
+       <!-- Modal Lightbox Gambar Layanan -->
+  
+
 <section id="layanan" class="border-y border-slate-200 bg-slate-50 py-16 sm:py-20 lg:py-24">
   <div class="mx-auto max-w-content px-4 sm:px-6 lg:px-8">
 
@@ -604,7 +695,21 @@ const SITE = {
     </p>
   </div>
 </section>
+<div id="layanan-lightbox" class="lb-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+  <button type="button" class="lb-close" aria-label="Tutup">&times;</button>
+  <button type="button" class="lb-nav lb-prev" aria-label="Sebelumnya">&#10094;</button>
 
+  <div class="lb-content">
+    <img id="lb-image" src="" alt="" />
+    <div class="lb-caption">
+      <p id="lb-title"></p>
+      <p id="lb-desc"></p>
+      <span id="lb-counter" class="lb-counter"></span>
+    </div>
+  </div>
+
+  <button type="button" class="lb-nav lb-next" aria-label="Berikutnya">&#10095;</button>
+</div>
 <!-- =========================================================================
      3.4  MENU PRODUK — katalog grid dari SITE.produk
      ========================================================================= -->
@@ -824,6 +929,7 @@ const SITE = {
      ========================================================================= -->
 <script>
 (function () {
+
   'use strict';
 
   var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -995,7 +1101,8 @@ const SITE = {
 
         '<div class="relative aspect-[4/3] overflow-hidden bg-navy-800">' +
           '<img src="' + s.img + '" alt="' + esc(s.alt) + '" width="800" height="600" loading="lazy" decoding="async" ' +
-               'class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]">' +
+               'data-slug="' + s.slug + '" ' +
+               'class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04] cursor-zoom-in">' +
           '<span class="absolute bottom-3 left-3 grid h-11 w-11 place-items-center rounded-xl bg-accent-500 text-navy-900 shadow-lg">' +
             lineIcon(s.icon, 'h-6 w-6') +
           '</span>' +
@@ -1023,6 +1130,80 @@ const SITE = {
     }).join('');
   }
 
+  function initLayananLightbox() {
+  var grid = document.getElementById('layanan-grid');
+  var overlay = document.getElementById('layanan-lightbox');
+  var imgEl = document.getElementById('lb-image');
+  var titleEl = document.getElementById('lb-title');
+  var descEl = document.getElementById('lb-desc');
+  var counterEl = document.getElementById('lb-counter');
+  var btnClose = overlay.querySelector('.lb-close');
+  var btnPrev = overlay.querySelector('.lb-prev');
+  var btnNext = overlay.querySelector('.lb-next');
+
+  var currentGaleri = [];
+  var currentIndex = 0;
+  var currentJudul = '';
+
+  function getGaleri(item) {
+    if (item.galeri && item.galeri.length) return item.galeri;
+    return [{ src: item.img, caption: item.alt }];
+  }
+
+  function render(index) {
+    if (!currentGaleri.length) return;
+    currentIndex = (index + currentGaleri.length) % currentGaleri.length;
+    var g = currentGaleri[currentIndex];
+    imgEl.setAttribute('src', g.src);
+    imgEl.setAttribute('alt', g.caption || currentJudul);
+    titleEl.textContent = currentJudul;
+    descEl.textContent = g.caption || '';
+    counterEl.textContent = currentGaleri.length > 1
+      ? (currentIndex + 1) + ' / ' + currentGaleri.length
+      : '';
+    var multi = currentGaleri.length > 1;
+    btnPrev.style.display = multi ? '' : 'none';
+    btnNext.style.display = multi ? '' : 'none';
+  }
+
+  function open(slug) {
+    var item = (SITE.layanan || []).filter(function (l) { return l.slug === slug; })[0];
+    if (!item) return;
+    currentGaleri = getGaleri(item);
+    currentJudul = item.judul;
+    render(0);
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  grid.addEventListener('click', function (e) {
+    var img = e.target.closest('img[data-slug]');
+    if (!img) return;
+    open(img.getAttribute('data-slug'));
+  });
+
+  btnClose.addEventListener('click', close);
+  btnPrev.addEventListener('click', function () { render(currentIndex - 1); });
+  btnNext.addEventListener('click', function () { render(currentIndex + 1); });
+
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) close();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (!overlay.classList.contains('is-open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') render(currentIndex - 1);
+    if (e.key === 'ArrowRight') render(currentIndex + 1);
+  });
+}
   /* =======================================================================
      5) renderProduk — grid katalog, 4/2/1 kolom
      ======================================================================= */
@@ -1342,6 +1523,7 @@ const SITE = {
       renderHero();
       renderTentang();
       renderLayanan();
+       initLayananLightbox();
       renderProduk();
       renderKontak();
       wireDefaultWaLinks(document);
