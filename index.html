@@ -36,14 +36,14 @@
 <meta property="og:url" content="https://www.adiwilagaagung.co.id/">
 <meta property="og:title" content="Adiwilaga Agung — Kontraktor Umum & Pengadaan Barang Jasa">
 <meta property="og:description" content="Mitra terpercaya untuk konstruksi, maintenance alat kantor & bank, pemusnahan dokumen arsip, percetakan, material proyek, dan instalasi CCTV/IT.">
-<meta property="og:image" content="https://www.adiwilagaagung.co.id/assets/img/og-image.svg">
+<meta property="og:image" content="https://www.adiwilagaagung.co.id/assets/img/logo.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Adiwilaga Agung — Kontraktor Umum & Pengadaan Barang Jasa">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Adiwilaga Agung — Kontraktor Umum & Pengadaan Barang Jasa">
 <meta name="twitter:description" content="Konstruksi, maintenance alat kantor & bank, pemusnahan dokumen arsip, percetakan, material proyek, CCTV & jaringan IT.">
-<meta name="twitter:image" content="https://www.adiwilagaagung.co.id/assets/img/og-image.svg">
+<meta name="twitter:image" content="https://www.adiwilagaagung.co.id/assets/img/logo.png">
 
 <!-- ===== FAVICON ====================================================== -->
 <link rel="icon" href="assets/img/logo.jpeg" type="image/svg+xml">
@@ -62,7 +62,7 @@
         <link rel="stylesheet" href="assets/css/tailwind.min.css">
      lalu jalankan perintah build yang ada di README.md (bagian "Build CSS").
      ==================================================================== -->
-<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<link rel="stylesheet" href="assets/css/tailwind.min.css">
 <script>
   /* -------------------------------------------------------------------------
      JARING PENGAMAN: sebagian jaringan kantor/instansi memblokir CDN publik.
@@ -70,12 +70,6 @@
      salinan CSS lokal (assets/css/tailwind.min.css) sehingga tampilan TETAP
      rapi — tidak pernah tampil sebagai teks tanpa gaya.
      ------------------------------------------------------------------------- */
-  if (!window.tailwind) {
-    document.head.insertAdjacentHTML('beforeend',
-      '<link rel="stylesheet" href="assets/css/tailwind.min.css">');
-    console.warn('[Adiwilaga Agung] Tailwind CDN tidak dapat dijangkau — memakai assets/css/tailwind.min.css.');
-  }
-
   /* Konfigurasi tema korporat: navy sebagai warna utama, oranye sebagai CTA. */
   if (window.tailwind) tailwind.config = {
     theme: {
@@ -242,7 +236,7 @@ const SITE = {
     alamatKantor: "Srimaya Residence Jl.Baswara Barat 5 No.ZBH 10, RT.003/RW.006, Ciketing Udik, Bantar Gebang, Bekasi, West Java 17153",
     alamatGudang: "Srimaya Residence Jl.Baswara Barat 5 No.ZBH 10, RT.003/RW.006, Ciketing Udik, Bantar Gebang, Bekasi, West Java 17153",
     // Query alamat untuk Google Maps. Bisa juga berupa koordinat "-6.914744,107.609810"
-    mapsQuery:    "-6.3590662,106.9849514",
+    mapsUrl:    "https://www.google.com/maps/place/Layanan+Service+Mesin+Alat+Kantor+%26+Bank,+Brankas,+Scanner,+Penghitung+Uang,+Penghancur+Kertas,+Mesin+Tik,+Proyektor.,+Srimaya+Residence+Jl.Baswara+Barat+5+No.ZBH+10,+RT.003%2FRW.006,+Ciketing+Udik,+Bantar+Gebang,+Bekasi,+West+Java+17153/data=!4m2!3m1!1s0x2e69930064031879:0xbce2e9035d13e6f2!18m1!1e1?utm_source=mstt_1&entry=gps&coh=192189&g_ep=CAESBzI2LjIyLjQYACCenQoqgQEsOTQyNjc3MjcsOTQyOTIxOTUsOTQyOTk1MzIsMTAwNzk2NDk4LDEwMDc5Nzc2MSwxMDA3OTY1MzUsOTQyODA1NzYsOTQyMDczOTQsOTQyMDc1MDYsOTQyMDg1MDYsOTQyMTg2NTMsOTQyMjk4MzksOTQyNzUxNjgsOTQyNzk2MTlCAklE&skid=90495e82-324c-4b0f-93a0-bb28c56ea690&g_st=aw",
     // (Opsional) Tempel URL embed Google Maps asli di sini; jika diisi, mapsQuery diabaikan.
     mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3965.270174033571!2d106.98495144!3d-6.35906621!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69930064031879%3A0xbce2e9035d13e6f2!2sLayanan%20Service%20Mesin%20Alat%20Kantor%20%26%20Bank%2C%20Brankas%2C%20Scanner%2C%20Penghitung%20Uang%2C%20Penghancur%20Kertas%2C%20Mesin%20Tik%2C%20Proyektor.!5e0!3m2!1sen!2sid!4v1786973549563!5m2!1sen!2sid",
     jamOperasional: [
@@ -351,7 +345,9 @@ const SITE = {
       { src: "assets/img/maintenance3.jpeg", caption: "Perbaikan mesin absen amano" },
       { src: "assets/img/printing3.jpeg", caption: "Perbaikan mesin tik elektrik & manual" },
       { src: "assets/img/printing1.jpeg", caption: "Perbaikan mesin printer dot matrix" },
-      { src: "assets/img/maintenance6.jpeg", caption: "Perbaikan mesin printer passbook" }
+      { src: "assets/img/maintenance7.jpeg", caption: "Perbaikan mesin printer tinta" },
+      { src: "assets/img/maintenance8.jpeg", caption: "Maintenance mesin penghancur kertas" },
+      { src: "assets/img/maintenance9.jpeg", caption: "Maintenance mesin hitung uang portable" },
     ]
   },
   {
@@ -1372,7 +1368,8 @@ function wireDefaultWaLinks(root) {
     }).join('') : '';
 
     $('#link-maps').setAttribute('href',
-      'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(k.mapsQuery || k.alamatKantor));
+     k.mapsUrl);
+
 
     $('#copyright').innerHTML = '&copy; ' + new Date().getFullYear() +
       ' Adiwilaga Agung. Seluruh hak cipta dilindungi. &middot; Kontraktor Umum &amp; Pengadaan Barang Jasa';
