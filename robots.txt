@@ -13,4 +13,4 @@ Allow: /
 # Blokir folder kerja internal (tidak perlu diindeks)
 Disallow: /tools/
 
-Sitemap: https://www.adiwilagaagung.co.id/sitemap.xml
+Sitemap: https://www.adiwilagaagung.com/sitemap.xml

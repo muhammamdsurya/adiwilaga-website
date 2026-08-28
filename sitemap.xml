@@ -6,7 +6,7 @@
   Deskripsi : Peta situs untuk single-page landing page. Setiap section utama
               didaftarkan sebagai URL beranchor agar Google dapat menampilkan
               "jump to section" pada hasil pencarian.
-  PENTING   : Ganti seluruh "https://www.adiwilagaagung.co.id" dengan domain
+  PENTING   : Ganti seluruh "https://www.adiwilagaagung.com" dengan domain
               asli setelah hosting aktif. Perbarui <lastmod> setiap kali
               konten diubah.
   Tanggal Modifikasi : 17 Agustus 2026
@@ -15,35 +15,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://www.adiwilagaagung.co.id/</loc>
+    <loc>https://www.adiwilagaagung.com/</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://www.adiwilagaagung.co.id/#tentang-kami</loc>
+    <loc>https://www.adiwilagaagung.com/#tentang-kami</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.adiwilagaagung.co.id/#layanan</loc>
+    <loc>https://www.adiwilagaagung.com/#layanan</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://www.adiwilagaagung.co.id/#produk</loc>
+    <loc>https://www.adiwilagaagung.com/#produk</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.adiwilagaagung.co.id/#kontak</loc>
+    <loc>https://www.adiwilagaagung.com/#kontak</loc>
     <lastmod>2026-08-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
