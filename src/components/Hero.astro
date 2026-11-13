@@ -1,0 +1,93 @@
+---
+import { getImage } from 'astro:assets';
+import Icon from './Icon.astro';
+import { heroSlides, img, waLink } from '../data/site';
+
+import { HERO_SIZES, heroImage } from '../data/images';
+const slides = await Promise.all(heroSlides.map(async (s) => ({
+  alt: s.alt,
+  fg: await heroImage(s.img),
+  bg: await getImage({ src: img(s.img), width: 800, quality: 50, format: 'webp' }),
+})));
+---
+<section id="beranda" class="relative isolate overflow-hidden bg-navy-950 pt-[68px] lg:pt-20">
+  <!-- Latar: foto slide aktif (blur ringan) + lapisan gelap agar teks selalu kontras -->
+  <div class="absolute inset-0 -z-10" aria-hidden="true">
+    {slides.map((s, i) => (
+      <img src={s.bg.src} alt="" loading={i ? 'lazy' : 'eager'} fetchpriority={i ? 'low' : 'auto'} decoding="async"
+           class:list={['hero-bg absolute inset-0 h-full w-full scale-110 object-cover blur-[6px] saturate-125', { 'is-active': i === 0 }]} />
+    ))}
+    <div class="absolute inset-0 bg-navy-950/75 lg:bg-transparent lg:bg-linear-to-r lg:from-navy-950/95 lg:via-navy-950/70 lg:to-navy-950/35"></div>
+    <div class="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-navy-950/70 to-transparent"></div>
+  </div>
+
+  <div class="mx-auto grid max-w-content items-center gap-10 px-4 pt-12 pb-24 sm:px-6 sm:pt-16 lg:grid-cols-[1.1fr_.9fr] lg:gap-14 lg:px-8 lg:pt-20 lg:pb-32">
+    <div>
+      <h1 class="font-heading text-[2rem] leading-[1.18] font-bold tracking-tight text-white sm:text-5xl lg:text-[3.25rem]">
+        Kontraktor Umum &amp; Pengadaan Barang Jasa di Bekasi
+      </h1>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-200">
+        Satu mitra untuk konstruksi dan renovasi, service mesin kantor dan bank, pemusnahan dokumen, percetakan, material proyek, serta CCTV dan jaringan IT. Melayani perusahaan, instansi, dan perorangan sejak 2015.
+      </p>
+      <ul class="mt-7 flex flex-col gap-2.5 text-base font-semibold text-white sm:flex-row sm:flex-wrap sm:gap-x-6">
+        <li class="flex items-center gap-2"><Icon name="shield" class="h-5 w-5 text-accent-300" />Legalitas lengkap</li>
+        <li class="flex items-center gap-2"><Icon name="hat" class="h-5 w-5 text-accent-300" />Tim teknis bersertifikat</li>
+        <li class="flex items-center gap-2"><Icon name="clip" class="h-5 w-5 text-accent-300" />Survey &amp; RAB gratis</li>
+      </ul>
+      <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+        <a href={waLink('Halo Adiwilaga Agung, saya ingin meminta penawaran.')} target="_blank" rel="noopener" class="inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-xl bg-wa-500 px-7 text-base font-bold text-navy-950 shadow-lift transition-colors hover:bg-wa-600">
+          <Icon name="wa" />Minta Penawaran
+        </a>
+        <a href="#layanan" class="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl border-2 border-white/30 px-7 text-base font-bold text-white transition-colors hover:border-white/60 hover:bg-white/10">
+          Lihat Layanan<Icon name="arrow" />
+        </a>
+      </div>
+    </div>
+
+    <figure class="mx-auto w-full max-w-md lg:max-w-none" aria-roledescription="carousel" aria-label="Dokumentasi pekerjaan">
+      <div class="relative aspect-4/3 overflow-hidden rounded-3xl bg-navy-900 shadow-2xl ring-1 ring-white/20 sm:aspect-5/4 lg:aspect-4/5">
+        {slides.map((s, i) => (
+          <img src={s.fg.src} srcset={s.fg.srcSet.attribute} sizes={HERO_SIZES} alt={s.alt} width="640" height="800"
+               loading={i ? 'lazy' : 'eager'} fetchpriority={i ? 'low' : 'high'} decoding="async"
+               class:list={['hero-slide absolute inset-0 h-full w-full object-cover', { 'is-active': i === 0 }]} />
+        ))}
+        <div class="absolute inset-x-0 bottom-0 bg-linear-to-t from-navy-950/85 to-transparent px-5 pt-16 pb-5">
+          <figcaption id="hero-cap" class="text-[15px] font-semibold text-white" aria-live="polite">{slides[0].alt}</figcaption>
+        </div>
+      </div>
+      <div class="mt-3 flex gap-2" role="group" aria-label="Pilih gambar">
+        {slides.map((_, i) => (
+          <button type="button" class="hero-bar group flex h-11 flex-1 items-center" aria-label={`Gambar ${i + 1} dari ${slides.length}`}>
+            <span class="relative block h-1 w-full overflow-hidden rounded-full bg-white/25 transition-colors group-hover:bg-white/40"><span class="absolute inset-0 rounded-full bg-white"></span></span>
+          </button>
+        ))}
+      </div>
+    </figure>
+  </div>
+</section>
+
+<script>
+  // Slide berputar terus; latar, caption, dan bar progres mengikuti slide aktif
+  const MS = 5500;
+  const hero = document.getElementById('beranda')!;
+  const slides = [...hero.querySelectorAll<HTMLImageElement>('.hero-slide')];
+  const bgs = [...hero.querySelectorAll('.hero-bg')];
+  const bars = [...hero.querySelectorAll<HTMLElement>('.hero-bar')];
+  const cap = document.getElementById('hero-cap')!;
+  hero.style.setProperty('--slide-ms', MS + 'ms');
+  let cur = 0, timer = 0;
+
+  function show(n: number) {
+    cur = (n + slides.length) % slides.length;
+    slides.forEach((s, i) => s.classList.toggle('is-active', i === cur));
+    bgs.forEach((b, i) => b.classList.toggle('is-active', i === cur));
+    bars.forEach((b, i) => { b.classList.remove('is-active'); b.classList.toggle('is-done', i < cur); b.toggleAttribute('aria-current', i === cur); });
+    void bars[cur].offsetWidth; // restart animasi bar
+    bars[cur].classList.add('is-active');
+    cap.textContent = slides[cur].alt;
+  }
+  const play = () => { clearInterval(timer); timer = window.setInterval(() => show(cur + 1), MS); };
+  bars.forEach((b, i) => b.addEventListener('click', () => { show(i); play(); }));
+  document.addEventListener('visibilitychange', () => { if (document.hidden) clearInterval(timer); else { show(cur); play(); } });
+  show(0); play();
+</script>

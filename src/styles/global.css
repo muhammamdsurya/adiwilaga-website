@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+/* Token desain: navy dasar, biru kepercayaan untuk aksen, hijau WhatsApp hanya untuk CTA utama */
+@theme {
+  --color-navy-950: #020617;
+  --color-navy-900: #0B1220;
+  --color-navy-800: #0F172A;
+  --color-navy-700: #1E293B;
+  --color-accent-100: #E0F2FE;
+  --color-accent-300: #7DD3FC;
+  --color-accent-400: #38BDF8;
+  --color-accent-600: #0284C7;
+  --color-accent-700: #0369A1;
+  --color-wa-500: #25D366;
+  --color-wa-600: #1EBE5D;
+  --font-sans: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-heading: "Lexend", "Source Sans 3", system-ui, sans-serif;
+  --container-content: 1200px;
+  --shadow-card: 0 1px 2px rgb(15 23 42 / .06), 0 8px 24px -8px rgb(15 23 42 / .12);
+  --shadow-lift: 0 8px 16px -4px rgb(15 23 42 / .12), 0 24px 48px -12px rgb(15 23 42 / .22);
+  --shadow-float: 0 8px 24px rgb(15 23 42 / .28);
+}
+
+@font-face { font-family: "Lexend"; src: url(/fonts/lexend.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url(/fonts/source-sans-3.woff2) format("woff2"); font-weight: 200 900; font-display: swap; }
+
+/* Transisi halus antar halaman tanpa JavaScript (Chrome, Edge, Safari 18+) */
+@view-transition { navigation: auto; }
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { @apply bg-white font-sans text-slate-700 antialiased; }
+  [id] { scroll-margin-top: 88px; }
+  :focus-visible { outline: 3px solid var(--color-accent-600); outline-offset: 3px; border-radius: 6px; }
+  h1, h2 { text-wrap: balance; }
+  button, summary, [role="button"] { cursor: pointer; }
+}
+
+@utility section-rule {
+  &::after { content: ""; display: block; width: 48px; height: 4px; margin-top: 14px; border-radius: 2px; background: var(--color-accent-600); }
+  &.is-center::after { margin-inline: auto; }
+}
+
+/* Reveal saat scroll: hanya bila JS aktif, jadi konten tetap terbaca tanpa JS */
+.js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .45s ease-out, transform .45s cubic-bezier(.22,.61,.36,1); }
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+/* Hero: gambar latar mengikuti slide aktif */
+.hero-bg, .hero-slide { opacity: 0; transition: opacity 1.1s ease-in-out; }
+.hero-bg.is-active, .hero-slide.is-active { opacity: 1; }
+.hero-slide { transform: scale(1.05); transition: opacity 1.1s ease-in-out, transform 6s ease-out; }
+.hero-slide.is-active { transform: scale(1); }
+.hero-bar > span { transform: scaleX(0); transform-origin: left; }
+.hero-bar.is-active > span { animation: hero-progress var(--slide-ms, 5500ms) linear forwards; }
+.hero-bar.is-done > span { transform: scaleX(1); }
+@keyframes hero-progress { to { transform: scaleX(1); } }
+
+/* Roadmap "Cara Kerja": garis jalur terisi, node menyala bergantian */
+.road-fill { transform: scaleY(0); transform-origin: top; transition: transform .55s ease-in-out; transition-delay: calc(var(--i) * 650ms + 350ms); }
+@media (min-width: 1024px) { .road-fill { transform: scaleX(0); transform-origin: left; } }
+.road.is-visible .road-fill { transform: none; }
+.road-node { transition: background-color .35s, color .35s, box-shadow .35s; transition-delay: calc(var(--i) * 650ms); }
+.road.is-visible .road-node { background: var(--color-accent-700); color: #fff; box-shadow: 0 0 0 6px var(--color-accent-100), 0 0 0 2px var(--color-accent-700); }
+
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+details[open] .faq-icon { transform: rotate(45deg); }
+
+dialog::backdrop { background: rgb(2 6 23 / .92); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; }
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; transition-delay: 0s !important; }
+  @view-transition { navigation: none; }
+}

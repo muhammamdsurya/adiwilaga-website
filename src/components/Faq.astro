@@ -1,0 +1,20 @@
+---
+import { faq } from '../data/site';
+interface Props { items?: typeof faq; title?: string }
+const { items = faq, title = 'Pertanyaan Umum' } = Astro.props;
+---
+<section id="faq" class="bg-slate-50 py-16 sm:py-20 lg:py-24">
+  <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+    <h2 class="reveal section-rule is-center text-center font-heading text-3xl font-bold tracking-tight text-navy-800 lg:text-4xl">{title}</h2>
+    <div class="mt-10 space-y-3">
+      {items.map((f, i) => (
+        <details class="reveal group rounded-2xl border border-slate-200 bg-white px-6 py-4 transition-shadow open:shadow-card" open={i === 0}>
+          <summary class="flex min-h-11 items-center justify-between gap-4 font-heading text-base font-semibold text-navy-800">
+            {f.q}<span class="faq-icon text-2xl leading-none text-accent-700 transition-transform duration-200" aria-hidden="true">+</span>
+          </summary>
+          <p class="mt-2 pb-1 text-base leading-relaxed text-slate-600">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

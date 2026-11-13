@@ -1,0 +1,193 @@
+---
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import Sprite from '../components/Sprite.astro';
+import logo from '../assets/img/logo.webp';
+import { Image } from 'astro:assets';
+import { company, services, fullAddress, waLink } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  jsonld?: object[];
+  preload?: { srcset: string; sizes: string };
+}
+const { title, description, jsonld = [], preload } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const og = new URL('/og-image.jpg', Astro.site).href;
+const nav = [
+  ['Tentang', '/#tentang-kami'], ['Layanan', '/#layanan'], ['Cara Kerja', '/#cara-kerja'],
+  ['Produk', '/#produk'], ['FAQ', '/#faq'], ['Kontak', '#kontak'],
+];
+---
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script is:inline>document.documentElement.classList.add('js')</script>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0B1220" />
+  <link rel="canonical" href={canonical} />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="id_ID" />
+  <meta property="og:site_name" content={company.name} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={og} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/logo-192.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/logo-192.png" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/lexend.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/source-sans-3.woff2" crossorigin />
+  {preload && <link rel="preload" as="image" fetchpriority="high" imagesrcset={preload.srcset} imagesizes={preload.sizes} />}
+  {jsonld.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
+</head>
+<body>
+  <a href="#main" class="sr-only z-[100] rounded-lg bg-white px-4 py-2 font-semibold text-navy-800 focus:not-sr-only focus:fixed focus:top-3 focus:left-3">Lewati ke konten utama</a>
+
+  <header id="site-header" class="fixed inset-x-0 top-0 z-50 bg-navy-950/70 backdrop-blur-md transition-shadow duration-300">
+    <div class="mx-auto flex h-[68px] max-w-content items-center justify-between gap-4 px-4 sm:px-6 lg:h-20 lg:px-8">
+      <a href="/" class="flex shrink-0 items-center gap-3" aria-label={`${company.name}, beranda`}>
+        <Image src={logo} alt="" width={44} height={44} densities={[1, 2]} loading="eager" class="h-10 w-10 rounded-xl bg-white lg:h-11 lg:w-11" />
+        <span class="leading-tight">
+          <span class="block font-heading text-[15px] font-semibold tracking-tight text-white sm:text-lg">{company.name}</span>
+          <span class="hidden text-sm text-slate-300 sm:block">Kontraktor &amp; Pengadaan</span>
+        </span>
+      </a>
+      <nav class="hidden items-center gap-1 lg:flex" aria-label="Navigasi utama">
+        {nav.map(([label, href]) => (
+          <a href={href} class="rounded-lg px-3 py-2 text-[15px] font-semibold text-slate-200 transition-colors hover:bg-white/10 hover:text-white">{label}</a>
+        ))}
+        <a href={waLink()} target="_blank" rel="noopener" class="ml-3 inline-flex min-h-11 items-center gap-2 rounded-xl bg-wa-500 px-4 text-[15px] font-bold text-navy-950 transition-colors hover:bg-wa-600">
+          <Icon name="wa" class="h-[18px] w-[18px]" />WhatsApp
+        </a>
+      </nav>
+      <button id="nav-toggle" type="button" class="grid h-11 w-11 place-items-center rounded-xl text-white transition-colors hover:bg-white/10 lg:hidden" aria-label="Menu navigasi" aria-expanded="false" aria-controls="nav-mobile">
+        <Icon name="menu" class="h-6 w-6" />
+      </button>
+    </div>
+    <nav id="nav-mobile" class="hidden border-t border-white/10 bg-navy-900 lg:hidden" aria-label="Navigasi utama (mobile)">
+      <div class="mx-auto max-w-content space-y-1 px-4 py-4 sm:px-6">
+        {nav.map(([label, href]) => (
+          <a href={href} class="block rounded-lg px-4 py-3 text-base font-semibold text-slate-200 hover:bg-white/10">{label}</a>
+        ))}
+        <a href={waLink()} target="_blank" rel="noopener" class="mt-2 flex items-center justify-center gap-2 rounded-xl bg-wa-500 px-4 py-3.5 text-base font-bold text-navy-950">
+          <Icon name="wa" />Hubungi via WhatsApp
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main"><slot /></main>
+
+  <footer id="kontak" class="bg-navy-950 pt-16 text-slate-300 sm:pt-20">
+    <div class="mx-auto max-w-content px-4 sm:px-6 lg:px-8">
+      <h2 class="section-rule font-heading text-3xl font-bold tracking-tight text-white lg:text-4xl">Kontak &amp; Lokasi</h2>
+      <div class="mt-12 grid gap-10 lg:grid-cols-[1fr_.8fr_1.2fr] lg:gap-12">
+        <address class="space-y-6 not-italic">
+          <div class="flex gap-4">
+            <Icon name="pin" class="mt-0.5 h-6 w-6 shrink-0 text-accent-400" />
+            <div><h3 class="font-heading font-semibold text-white">Alamat</h3><p class="mt-1 leading-relaxed">{fullAddress}</p></div>
+          </div>
+          <div class="flex gap-4">
+            <Icon name="wa" class="mt-0.5 h-6 w-6 shrink-0 text-accent-400" />
+            <div><h3 class="font-heading font-semibold text-white">WhatsApp</h3>
+              <ul class="mt-1">{company.wa.map((w, i) => (
+                <li><a href={waLink(undefined, i)} target="_blank" rel="noopener" class="inline-block py-1 transition-colors hover:text-accent-300">{w.label}</a></li>
+              ))}</ul>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <Icon name="mail" class="mt-0.5 h-6 w-6 shrink-0 text-accent-400" />
+            <div><h3 class="font-heading font-semibold text-white">Email</h3><a href={`mailto:${company.email}`} class="mt-1 inline-block break-all transition-colors hover:text-accent-300">{company.email}</a></div>
+          </div>
+          <div class="flex gap-4">
+            <Icon name="clock" class="mt-0.5 h-6 w-6 shrink-0 text-accent-400" />
+            <div><h3 class="font-heading font-semibold text-white">Jam Operasional</h3><p class="mt-1">{company.hours}</p></div>
+          </div>
+        </address>
+
+        <nav aria-labelledby="footer-layanan">
+          <h3 id="footer-layanan" class="font-heading font-semibold text-white">Layanan</h3>
+          <ul class="mt-3 space-y-1">
+            {services.map((s) => (
+              <li><a href={`/layanan/${s.slug}/`} class="inline-block py-1 transition-colors hover:text-accent-300">{s.short}</a></li>
+            ))}
+          </ul>
+        </nav>
+
+        <div>
+          <iframe src={company.mapsEmbed} title={`Peta lokasi ${company.name}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                  class="h-80 w-full rounded-2xl border border-white/10 bg-navy-900 lg:h-[420px]"></iframe>
+          <a href={company.mapsUrl} target="_blank" rel="noopener" class="mt-3 inline-flex min-h-11 items-center gap-2 font-semibold text-accent-300 underline underline-offset-4 transition-colors hover:text-white">
+            Buka di Google Maps<Icon name="arrow" class="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-14 flex flex-col items-center gap-5 border-t border-white/10 py-8 sm:flex-row sm:justify-between">
+        <p class="text-sm text-slate-400">&copy; {new Date().getFullYear()} {company.name} · {company.tagline}</p>
+        <ul class="flex gap-2">
+          {company.social.map((s) => (
+            <li><a href={s.url} target="_blank" rel="noopener" aria-label={`${s.name} ${company.name}`} class="grid h-11 w-11 place-items-center rounded-xl border border-white/15 transition-colors hover:border-accent-400 hover:text-accent-300"><Icon name={s.icon} /></a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <div class="fixed right-4 bottom-4 z-50 flex flex-col items-end gap-3 sm:right-6 sm:bottom-6">
+    <button id="to-top" type="button" aria-label="Kembali ke atas" class="pointer-events-none grid h-11 w-11 translate-y-2 place-items-center rounded-full bg-navy-800/90 text-white opacity-0 shadow-float transition-all duration-300 hover:bg-navy-700">
+      <Icon name="arrow" class="h-5 w-5 -rotate-90" />
+    </button>
+    <a href={waLink()} target="_blank" rel="noopener" aria-label={`Chat WhatsApp dengan ${company.name}`} class="grid h-14 w-14 place-items-center rounded-full bg-wa-500 text-navy-950 shadow-float ring-4 ring-wa-500/20 transition-colors hover:bg-wa-600">
+      <Icon name="wa" class="h-7 w-7" />
+    </a>
+  </div>
+
+  <Sprite />
+
+  <script>
+    const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const $ = (s: string) => document.querySelector<HTMLElement>(s)!;
+
+    // Menu mobile
+    const toggle = $('#nav-toggle'), panel = $('#nav-mobile');
+    const setMenu = (open: boolean) => { panel.classList.toggle('hidden', !open); toggle.setAttribute('aria-expanded', String(open)); };
+    toggle.onclick = () => setMenu(panel.classList.contains('hidden'));
+    panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+    addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+
+    // Bayangan header + tombol ke atas
+    const header = $('#site-header'), toTop = $('#to-top');
+    const onScroll = () => {
+      header.classList.toggle('shadow-lg', scrollY > 12);
+      const off = scrollY < 600;
+      toTop.classList.toggle('opacity-0', off); toTop.classList.toggle('translate-y-2', off); toTop.classList.toggle('pointer-events-none', off);
+    };
+    onScroll(); addEventListener('scroll', onScroll, { passive: true });
+    toTop.onclick = () => scrollTo({ top: 0, behavior: REDUCED ? 'auto' : 'smooth' });
+
+    // Reveal bertahap + counter angka
+    const io = new IntersectionObserver((entries, obs) => entries.filter((e) => e.isIntersecting).forEach((e, i) => {
+      const el = e.target as HTMLElement;
+      obs.unobserve(el);
+      el.style.transitionDelay = Math.min(i, 5) * 60 + 'ms';
+      el.classList.add('is-visible');
+      if (!REDUCED) el.querySelectorAll<HTMLElement>('.counter').forEach((c) => {
+        const end = +c.textContent!, t0 = performance.now();
+        const step = (t: number) => { const p = Math.min((t - t0) / 1200, 1); c.textContent = String(Math.round(end * (1 - (1 - p) ** 3))); if (p < 1) requestAnimationFrame(step); };
+        requestAnimationFrame(step);
+      });
+    }), { rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { services } from '../data/site';
+---
+<Base title="Halaman tidak ditemukan | Adiwilaga Agung" description="Halaman yang Anda cari tidak tersedia.">
+  <section class="bg-navy-950 pt-[68px] lg:pt-20">
+    <div class="mx-auto max-w-3xl px-4 py-24 text-center sm:px-6">
+      <p class="font-heading text-7xl font-bold text-accent-300">404</p>
+      <h1 class="mt-4 font-heading text-3xl font-bold text-white">Halaman tidak ditemukan</h1>
+      <p class="mt-4 text-lg text-slate-300">Mungkin alamatnya berubah. Coba salah satu layanan berikut:</p>
+      <ul class="mt-8 flex flex-wrap justify-center gap-2">
+        {services.map((s) => <li><a href={`/layanan/${s.slug}/`} class="inline-flex min-h-11 items-center rounded-xl border border-white/20 px-4 font-semibold text-white transition-colors hover:bg-white/10">{s.short}</a></li>)}
+      </ul>
+      <a href="/" class="mt-10 inline-flex min-h-[52px] items-center gap-2 rounded-xl bg-white px-7 font-bold text-navy-800 transition-colors hover:bg-slate-200">Kembali ke beranda<Icon name="arrow" /></a>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,6 @@
+---
+/* Ikon dari sprite (Sprite.astro). Dekoratif: selalu aria-hidden */
+interface Props { name: string; class?: string }
+const { name, class: cls = 'h-5 w-5' } = Astro.props;
+---
+<svg class={cls} aria-hidden="true"><use href={`#i-${name}`} /></svg>

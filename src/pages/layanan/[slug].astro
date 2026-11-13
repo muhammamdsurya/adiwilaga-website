@@ -1,0 +1,172 @@
+---
+import { Image, getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Roadmap from '../../components/Roadmap.astro';
+import Faq from '../../components/Faq.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import { services, faq, img, waLink, company, type Service } from '../../data/site';
+import { breadcrumb, serviceSchema, faqPage } from '../../data/schema';
+import { preloadOf, heroImage, HERO_SIZES } from '../../data/images';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { s } }));
+}
+const { s } = Astro.props as { s: Service };
+
+const msg = `Halo Adiwilaga Agung, saya ingin bertanya tentang ${s.title}.`;
+const cover = await heroImage(s.cover);
+const bg = await getImage({ src: img(s.cover), width: 800, quality: 50, format: 'webp' });
+const gallery = await Promise.all(s.gallery.map(async ([name, caption]) => ({
+  name, caption, full: (await getImage({ src: img(name), width: 1280, quality: 72, format: 'webp' })).src,
+})));
+const faqs = faq.filter((f) => f.service === s.slug || f.q.startsWith('Bagaimana cara'));
+const others = services.filter((o) => o.slug !== s.slug);
+const jsonld = [
+  serviceSchema(s),
+  breadcrumb([['Beranda', '/'], ['Layanan', '/#layanan'], [s.title, `/layanan/${s.slug}/`]]),
+  faqPage(faqs),
+];
+---
+<Base title={`${s.title} di Bekasi | Adiwilaga Agung`} description={s.meta} jsonld={jsonld} preload={await preloadOf(s.cover)}>
+  <section class="relative isolate overflow-hidden bg-navy-950 pt-[68px] lg:pt-20">
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      <img src={bg.src} alt="" class="absolute inset-0 h-full w-full scale-110 object-cover blur-[6px] saturate-125" />
+      <div class="absolute inset-0 bg-navy-950/75 lg:bg-transparent lg:bg-linear-to-r lg:from-navy-950/95 lg:via-navy-950/75 lg:to-navy-950/40"></div>
+    </div>
+    <div class="mx-auto grid max-w-content items-center gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[1.15fr_.85fr] lg:gap-14 lg:px-8 lg:py-20">
+      <div>
+        <nav aria-label="Breadcrumb">
+          <ol class="flex flex-wrap items-center gap-2 text-[15px] text-slate-300">
+            <li><a href="/" class="hover:text-white hover:underline">Beranda</a></li>
+            <li aria-hidden="true">/</li>
+            <li><a href="/#layanan" class="hover:text-white hover:underline">Layanan</a></li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page" class="text-white">{s.short}</li>
+          </ol>
+        </nav>
+        <h1 class="mt-5 font-heading text-[2rem] leading-[1.18] font-bold tracking-tight text-white sm:text-5xl">
+          {s.title} <span class="text-accent-300">di Bekasi</span>
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-200">{s.lead}</p>
+        <ul class="mt-7 flex flex-col gap-2.5 text-base font-semibold text-white">
+          {s.points.map((p) => <li class="flex items-center gap-2.5"><Icon name="check" class="h-5 w-5 text-accent-300" />{p}</li>)}
+        </ul>
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+          <a href={waLink(msg)} target="_blank" rel="noopener" class="inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-xl bg-wa-500 px-7 text-base font-bold text-navy-950 shadow-lift transition-colors hover:bg-wa-600">
+            <Icon name="wa" />Minta Penawaran
+          </a>
+          <a href="#dokumentasi" class="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl border-2 border-white/30 px-7 text-base font-bold text-white transition-colors hover:border-white/60 hover:bg-white/10">
+            Lihat Dokumentasi<Icon name="arrow" class="h-5 w-5 rotate-90" />
+          </a>
+        </div>
+      </div>
+      <div class="mx-auto w-full max-w-md lg:max-w-none">
+        <img src={cover.src} srcset={cover.srcSet.attribute} sizes={HERO_SIZES} alt={s.alt} width="640" height="800" fetchpriority="high"
+             class="aspect-4/3 w-full rounded-3xl object-cover shadow-2xl ring-1 ring-white/20 sm:aspect-5/4 lg:aspect-4/5" style={`view-transition-name: svc-${s.slug}`} />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 sm:py-20">
+    <div class="mx-auto grid max-w-content gap-10 px-4 sm:px-6 lg:grid-cols-[1.4fr_1fr] lg:gap-14 lg:px-8">
+      <div class="reveal">
+        <h2 class="section-rule font-heading text-3xl font-bold tracking-tight text-navy-800">Cakupan Layanan</h2>
+        <ul class="mt-8 grid gap-3 sm:grid-cols-2">
+          {s.scope.map((x) => (
+            <li class="flex items-start gap-3 rounded-2xl border border-slate-200 p-4 text-base font-semibold text-navy-700">
+              <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-accent-100 text-accent-700"><Icon name="check" class="h-4 w-4" /></span>{x}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <aside class="reveal self-start rounded-3xl bg-navy-800 p-6 text-slate-300 sm:p-8" aria-labelledby="quote-title">
+        <h2 id="quote-title" class="font-heading text-xl font-semibold text-white">Minta penawaran</h2>
+        <p class="mt-2 text-[15px]">Kirim kebutuhan Anda, kami balas pada jam operasional ({company.hours}).</p>
+        <div class="mt-6 flex flex-col gap-3">
+          {company.wa.map((w, i) => (
+            <a href={waLink(msg, i)} target="_blank" rel="noopener"
+               class:list={['inline-flex min-h-[52px] items-center justify-center gap-2.5 rounded-xl px-5 font-bold transition-colors',
+                 i === 0 ? 'bg-wa-500 text-navy-950 hover:bg-wa-600' : 'border-2 border-white/30 text-white hover:border-white/60 hover:bg-white/10']}>
+              <Icon name="wa" />{w.label}
+            </a>
+          ))}
+          <a href={`mailto:${company.email}?subject=${encodeURIComponent(s.title)}`} class="inline-flex min-h-11 items-center justify-center gap-2 text-[15px] font-semibold text-accent-300 hover:text-white">
+            <Icon name="mail" />{company.email}
+          </a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="dokumentasi" class="border-y border-slate-200 bg-slate-50 py-16 sm:py-20">
+    <div class="mx-auto max-w-content px-4 sm:px-6 lg:px-8">
+      <h2 class="reveal section-rule font-heading text-3xl font-bold tracking-tight text-navy-800">Dokumentasi Pekerjaan</h2>
+      <ul class="mt-10 columns-2 gap-4 sm:columns-3 lg:columns-4">
+        {gallery.map((g, i) => (
+          <li class="reveal mb-4 break-inside-avoid">
+            <button type="button" class="gal-item group relative block w-full overflow-hidden rounded-2xl bg-navy-800 text-left" data-full={g.full} data-i={i} aria-label={`Perbesar foto: ${g.caption}`}>
+              <Image src={img(g.name)} alt={g.caption} widths={[320, 480]} sizes="(min-width: 1024px) 280px, (min-width: 640px) 33vw, 50vw" class="w-full transition duration-500 group-hover:scale-105" />
+              <span class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 bg-linear-to-t from-navy-950/85 to-transparent p-3 pt-10 text-sm font-semibold text-white">
+                {g.caption}<Icon name="expand" class="h-4 w-4 shrink-0 opacity-70 transition-opacity group-hover:opacity-100" />
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <Roadmap msg={msg} />
+  <Faq items={faqs} title="Pertanyaan Seputar Layanan" />
+
+  <section class="bg-white py-16 sm:py-20" aria-labelledby="lainnya">
+    <div class="mx-auto max-w-content px-4 sm:px-6 lg:px-8">
+      <h2 id="lainnya" class="reveal section-rule font-heading text-3xl font-bold tracking-tight text-navy-800">Layanan Lainnya</h2>
+      <ul class="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {others.map((o) => (
+          <li class="reveal">
+            <a href={`/layanan/${o.slug}/`} class="group flex items-center gap-4 rounded-2xl border border-slate-200 p-3 transition hover:border-accent-600/40 hover:shadow-card">
+              <Image src={img(o.cover)} alt="" width={72} height={72} densities={[1, 2]} class="h-16 w-16 shrink-0 rounded-xl object-cover" />
+              <span class="flex-1 font-heading text-[15px] leading-snug font-semibold text-navy-800">{o.title}</span>
+              <Icon name="arrow" class="h-4 w-4 shrink-0 text-accent-700 transition-transform group-hover:translate-x-1" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand msg={msg} />
+
+  <dialog id="lightbox" aria-label="Galeri foto" class="fixed inset-0 m-0 h-full max-h-none w-full max-w-none items-center justify-center bg-transparent p-4 open:flex">
+    <figure class="flex flex-col items-center">
+      <img id="lb-img" src="data:," alt="" class="max-h-[78vh] max-w-[92vw] rounded-xl object-contain shadow-2xl" />
+      <figcaption id="lb-cap" class="mt-3 text-center text-[15px] text-slate-200"></figcaption>
+    </figure>
+    <button type="button" data-lb="close" aria-label="Tutup galeri" class="absolute top-4 right-4 grid h-11 w-11 place-items-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/30"><Icon name="close" /></button>
+    <button type="button" data-lb="-1" aria-label="Foto sebelumnya" class="absolute top-1/2 left-3 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/30"><Icon name="arrow" class="h-5 w-5 rotate-180" /></button>
+    <button type="button" data-lb="1" aria-label="Foto berikutnya" class="absolute top-1/2 right-3 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/30"><Icon name="arrow" class="h-5 w-5" /></button>
+  </dialog>
+</Base>
+
+<script>
+  // Lightbox pakai <dialog> bawaan browser: fokus terkunci, Esc menutup, fokus kembali otomatis
+  const dlg = document.getElementById('lightbox') as HTMLDialogElement;
+  const items = [...document.querySelectorAll<HTMLButtonElement>('.gal-item')];
+  const lbImg = document.getElementById('lb-img') as HTMLImageElement, lbCap = document.getElementById('lb-cap')!;
+  let cur = 0;
+  const show = (n: number) => {
+    cur = (n + items.length) % items.length;
+    const it = items[cur], alt = it.querySelector('img')!.alt;
+    lbImg.src = it.dataset.full!; lbImg.alt = alt;
+    lbCap.textContent = `${alt} (${cur + 1}/${items.length})`;
+  };
+  items.forEach((b, i) => b.addEventListener('click', () => { show(i); dlg.showModal(); }));
+  dlg.querySelectorAll<HTMLButtonElement>('[data-lb]').forEach((b) => {
+    if (items.length < 2 && b.dataset.lb !== 'close') b.hidden = true;
+    b.addEventListener('click', () => b.dataset.lb === 'close' ? dlg.close() : show(cur + Number(b.dataset.lb)));
+  });
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') show(cur - 1); if (e.key === 'ArrowRight') show(cur + 1); });
+</script>

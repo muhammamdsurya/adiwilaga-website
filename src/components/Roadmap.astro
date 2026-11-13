@@ -1,0 +1,42 @@
+---
+import Icon from './Icon.astro';
+import { steps, waLink } from '../data/site';
+interface Props { msg?: string }
+const { msg } = Astro.props;
+---
+<section id="cara-kerja" class="relative isolate overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
+  <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[radial-gradient(var(--color-slate-200)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]"></div>
+  <div class="mx-auto max-w-content px-4 sm:px-6 lg:px-8">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <h2 class="section-rule is-center font-heading text-3xl font-bold tracking-tight text-navy-800 lg:text-4xl">Cara Kerja Kami</h2>
+      <p class="mt-6 text-lg text-slate-600">Empat langkah dari pesan pertama sampai serah terima, semuanya terdokumentasi.</p>
+    </div>
+
+    <!-- Jalur: tiap langkah punya penghubung ke langkah berikutnya yang terisi bergantian -->
+    <ol class="road reveal mx-auto mt-14 grid max-w-xl gap-10 lg:max-w-none lg:grid-cols-4 lg:gap-0">
+      {steps.map((s, i) => (
+        <li class="relative flex gap-5 lg:flex-col lg:items-center lg:px-5 lg:text-center" style={`--i:${i}`}>
+          {i < steps.length - 1 && (
+            <span aria-hidden="true" class="absolute top-16 -bottom-8 left-[26px] w-1 lg:top-[26px] lg:bottom-auto lg:left-[calc(50%+40px)] lg:h-1 lg:w-[calc(100%-80px)]">
+              <span class="absolute inset-0 border-l-4 border-dashed border-slate-300 lg:border-t-4 lg:border-l-0"></span>
+              <span class="road-fill absolute inset-0 rounded-full bg-accent-600"></span>
+            </span>
+          )}
+          <span class="road-node relative z-10 grid h-14 w-14 shrink-0 place-items-center rounded-full bg-white text-slate-500 ring-2 ring-slate-200">
+            <Icon name={s.icon} class="h-6 w-6" />
+          </span>
+          <div class="pt-1 lg:mt-6 lg:pt-0">
+            <h3 class="font-heading text-lg font-semibold text-navy-800"><span class="text-accent-700">{i + 1}.</span> {s.title}</h3>
+            <p class="mt-2 text-[15px] leading-relaxed text-slate-600">{s.text}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <div class="reveal mt-14 text-center">
+      <a href={waLink(msg)} target="_blank" rel="noopener" class="inline-flex min-h-[52px] items-center gap-2.5 rounded-xl bg-navy-800 px-7 text-base font-bold text-white shadow-lift transition-colors hover:bg-navy-700">
+        <Icon name="wa" />Mulai dari langkah 1
+      </a>
+    </div>
+  </div>
+</section>

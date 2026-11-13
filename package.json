@@ -1,14 +1,18 @@
 {
   "name": "adiwilaga-agung-landing",
-  "version": "1.0.0",
-  "description": "Landing page statis Adiwilaga Agung — Kontraktor Umum & Pengadaan Barang Jasa",
+  "version": "2.0.0",
+  "description": "Situs Adiwilaga Agung, Kontraktor Umum & Pengadaan Barang Jasa (Astro, output statis)",
   "private": true,
+  "type": "module",
   "scripts": {
-    "build:css": "tailwindcss -i src/input.css -o assets/css/tailwind.min.css --minify",
-    "watch:css": "tailwindcss -i src/input.css -o assets/css/tailwind.min.css --watch",
-    "verify": "node tools/verify.js"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
   },
-  "devDependencies": {
-    "tailwindcss": "^3.4.16"
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.4",
+    "@tailwindcss/vite": "4.3.3",
+    "astro": "7.4.4",
+    "tailwindcss": "4.3.3"
   }
 }
