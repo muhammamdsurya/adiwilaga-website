@@ -95,6 +95,11 @@ const jsonld = [
             <Icon name="mail" />{company.email}
           </a>
         </div>
+        {s.link && (
+          <p class="mt-5 border-t border-white/15 pt-5 text-[15px]">
+            {s.link.text} <a href={s.link.url} target="_blank" rel="noopener" class="font-semibold text-accent-300 underline underline-offset-2 hover:text-white">{s.link.label}</a>.
+          </p>
+        )}
       </aside>
     </div>
   </section>

@@ -76,6 +76,8 @@ export const steps = [
 export type Service = {
   slug: string; title: string; short: string; meta: string; lead: string;
   cover: string; alt: string; points: string[]; scope: string[]; gallery: [string, string][];
+  /* tautan tambahan di kartu "Minta penawaran" */
+  link?: { text: string; label: string; url: string };
 };
 
 export const services: Service[] = [
@@ -177,6 +179,7 @@ export const services: Service[] = [
     points: ['CCTV dengan akses dari HP', 'Jaringan LAN dan Wi-Fi', 'Absensi sidik jari dan akses pintu', 'Custom software'],
     scope: ['Instalasi CCTV dengan akses dari HP', 'Jaringan LAN dan Wi-Fi', 'Mesin absensi sidik jari dan akses pintu', 'Pembuatan aplikasi dan software custom', 'Perawatan perangkat berkala'],
     gallery: [['cctv1', 'Pemasangan CCTV'], ['akses', 'Akses pintu sidik jari'], ['aplikasi', 'Pembuatan aplikasi custom']],
+    link: { text: 'Lihat portofolio website dan aplikasi custom kami di', label: 'Ayrus Digital', url: 'https://ayrusdigital.my.id/' },
   },
 ];
 
