@@ -29,6 +29,7 @@
 - [Supplier material proyek](https://www.adiwilagaagung.com/layanan/supplier-material/)
 - [Bongkar gedung dan bangunan](https://www.adiwilagaagung.com/layanan/bongkar-pasang-gedung/)
 - [Sewa mobil operasional](https://www.adiwilagaagung.com/layanan/sewa-mobil/)
+- [Sewa tenda dan perlengkapan acara](https://www.adiwilagaagung.com/layanan/sewa-tenda-perlengkapan-acara/)
 - [Pengadaan barang dan jasa custom](https://www.adiwilagaagung.com/layanan/custom-alat/)
 - [Perbaikan alat dan perawatan mesin](https://www.adiwilagaagung.com/layanan/repair-alat/)
 - [Layanan IT: CCTV, jaringan, absensi, custom software](https://www.adiwilagaagung.com/layanan/layanan-jasa-it/)

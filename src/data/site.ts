@@ -41,7 +41,7 @@ export const stats = [
   { value: 11, suffix: '+', label: 'Tahun pengalaman' },
   { value: 120, suffix: '+', label: 'Proyek selesai' },
   { value: 45, suffix: '+', label: 'Klien korporat & instansi' },
-  { value: 10, suffix: '', label: 'Lini layanan' },
+  { value: 11, suffix: '', label: 'Lini layanan' },
 ];
 
 export const legal = [
@@ -143,6 +143,15 @@ export const services: Service[] = [
     gallery: [['rental-car1', 'Armada mobil operasional'], ['rental-car2', 'Mobil operasional siap pakai']],
   },
   {
+    slug: 'sewa-tenda-perlengkapan-acara', title: 'Sewa Tenda & Perlengkapan Acara', short: 'Sewa Tenda & Acara',
+    meta: 'Sewa tenda dan perlengkapan acara di Bekasi untuk kantor, instansi, dan perorangan: kursi bersarung, meja, backdrop, dan dekorasi, termasuk penataan di lokasi.',
+    lead: 'Sewa tenda dan perlengkapan acara untuk kantor, instansi, dan perorangan. Kursi bersarung, meja, backdrop, dan dekorasi bunga kami antar dan tata di lokasi sampai acara siap dimulai.',
+    cover: 'event-rental2', alt: 'Penataan kursi bersarung putih dan backdrop untuk acara seminar',
+    points: ['Untuk kantor dan perorangan', 'Antar, pasang, dan bongkar', 'Penataan sesuai layout acara'],
+    scope: ['Sewa tenda untuk acara indoor dan outdoor', 'Kursi bersarung dan meja', 'Backdrop dan banner acara', 'Dekorasi bunga dan standing flower', 'Pengantaran, penataan, dan pembongkaran'],
+    gallery: [['event-rental2', 'Penataan kursi untuk seminar'], ['event-rental1', 'Meja narasumber dan backdrop acara'], ['event-rental3', 'Penataan kursi bersarung untuk peserta']],
+  },
+  {
     slug: 'custom-alat', title: 'Pengadaan Barang & Jasa Custom', short: 'Barang Custom',
     meta: 'Pembuatan brankas custom, troli, dan perkakas sesuai spesifikasi teknis di Bekasi, termasuk pengantaran barang jadi.',
     lead: 'Pembuatan brankas, troli, dan perkakas sesuai spesifikasi teknis Anda, termasuk pengantaran barang jadi.',
@@ -186,7 +195,7 @@ export const products = [
 
 /* `service` mengaitkan pertanyaan ke halaman layanan tertentu (tampil juga di sana) */
 export const faq: { q: string; a: string; service?: string }[] = [
-  { q: 'Apa saja layanan Adiwilaga Agung?', a: 'Konstruksi dan renovasi gedung atau rumah, service dan maintenance alat kantor dan bank, sewa mesin penghancur kertas dan pemusnahan dokumen, percetakan umum, supplier material proyek, bongkar bangunan, sewa mobil operasional, pembuatan barang custom, perbaikan mesin, serta instalasi CCTV, jaringan, absensi, dan custom software.' },
+  { q: 'Apa saja layanan Adiwilaga Agung?', a: 'Konstruksi dan renovasi gedung atau rumah, service dan maintenance alat kantor dan bank, sewa mesin penghancur kertas dan pemusnahan dokumen, percetakan umum, supplier material proyek, bongkar bangunan, sewa mobil operasional, sewa tenda dan perlengkapan acara, pembuatan barang custom, perbaikan mesin, serta instalasi CCTV, jaringan, absensi, dan custom software.' },
   { q: 'Di mana lokasi Adiwilaga Agung?', a: 'Kantor kami di Srimaya Residence, Jl. Baswara Barat 5 No. ZBH 10, Ciketing Udik, Bantar Gebang, Bekasi, Jawa Barat 17153.' },
   { q: 'Kapan jam operasional Adiwilaga Agung?', a: 'Setiap hari pukul 09.00 sampai 17.00 WIB.' },
   { q: 'Apakah pemusnahan dokumen disertai Berita Acara?', a: 'Ya. Setiap pemusnahan disertai Berita Acara Pemusnahan. Dokumen dihancurkan dengan mesin penghancur kertas di lokasi Anda atau dilebur dengan metode pulping sehingga tidak dapat direkonstruksi.', service: 'sewa-mesin-penghancur-kertas' },
